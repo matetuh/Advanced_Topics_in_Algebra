@@ -1,8 +1,4 @@
-# --- testthat library installation -------------
-install.packages("testthat")
-
-
-# function that creates matrix from user input
+# function that creates matrix from user input ------ 'nxn' -------
 matrix_maker <- function(){
   # input number of rows
   x <- as.integer(readline("Number of rows: "))
@@ -24,8 +20,6 @@ matrix_maker <- function(){
 
 # V matrix is the input matrix / return from matrix_maker function
 V <- matrix_maker()
-# let's print the V matrix
-# print(V)
 
 # declaring the number of rows & columns of V matrix
 row <- nrow(V)
@@ -33,13 +27,6 @@ col <- ncol(V)
 
 # creating U matrix of zeros and size row x col / the same size as V matrix
 U <- matrix(0,row,col)
-# print(U)
-
-# test start
-# V1 <- V[,1] daje pierwszy wektor (1 kolumnę)
-# V2 <- V[,2] daje drugi wektor (2 kolumnę)
-# V3 <- V[,3] daje trzeci wektor (3 kolumnę)
-# test end
 
 # dot product function
 dot_product <- function(A,B){
@@ -52,13 +39,6 @@ dot_product <- function(A,B){
   return(sum)
 }
 
-# test dot_product start
-# dla wektorów V1=(1,1,1) i V2=(2,2,2)
-# dostajemy wartość 6
-# xxx <- dot_product(V1,V2)
-# print(xxx)
-# tesst dot_product end
-
 # projection operator function
 projection <- function(B,A){
   value_up <- dot_product(A,B)
@@ -67,21 +47,12 @@ projection <- function(B,A){
   return(exit_value)
 }
 
-# test projection operator start
-# dla wektorów V1=(1,1,1) i V2=(2,2,2)
-# dostajemy wektor (2,2,2)
-# yyy <- projection(V2,V1)
-# print(yyy)
-# test projection operator end
-
-
-# Gram - Schmidt ortho function
+# ----------------- G - S ORTHOGONALIZATION ------------------------ 
 # X i Y to macierze -> V i U
-gram_schmidt <-function(X,Y) {
+
+gram_schmidt <- function(X,Y) {
   
-  #-------------ORTOGONALIZACJA---------------------------------
-  # przypisanie pierwszemu wektorowi z X, pierwszego wektora z Y
-  #X[,1] <- Y[,1]
+  #-------------ORTHOGONALIZATION---------------------------------
   # zadeklarowanie i zainicjowanie zmiennej sum na zero
   sum <- 0
   # length(X[,1]) czyli liczba rzędów pierwszej kolumny macierzy X -> przyszłe V
@@ -100,7 +71,7 @@ gram_schmidt <-function(X,Y) {
   # po pierwszej pętli otrzymujemy zbiór wektorów ortogonalnych
   # teraz należy je znormalizować
   
-  #------------NORMALIZACJA------------------------------------
+  #------------NORMALIZATION------------------------------------
   # lecimy po wszystkich wektorach, czyli pętla od 1 do len(X[,1])
   for(i in 1:length(X[,1])){
     # każdy wektro X[,i] dzielimy przez normę, czyli długość tego wektora = dot_product(X[,i],X[,i])^0.5
@@ -112,13 +83,14 @@ gram_schmidt <-function(X,Y) {
   return(X)
 }
 
-#------------ MAIN ------------------
-
+#---------------------------- MAIN -------------------------
 print(gram_schmidt(U,V))
 
-#---------- TESTING -----------------
-
+# --- TEST NUM. STABILITY IN ANY WAY YOU WANT -------------
+# i am using testthat library
+install.packages("testthat")
 library(testthat)
+
 # If erroe doesn't appear than the code is  - OK
 # Example from page : https://pl.wikipedia.org/wiki/Ortogonalizacja_Grama-Schmidta
 test_that("gram schmidt orto", {
