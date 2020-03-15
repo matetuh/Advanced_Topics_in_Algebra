@@ -119,13 +119,13 @@ print(gram_schmidt(U,V))
 #---------- TESTING -----------------
 
 library(testthat)
-# If works than the code is  - OK
+# If erroe doesn't appear than the code is  - OK
 # Example from page : https://pl.wikipedia.org/wiki/Ortogonalizacja_Grama-Schmidta
 test_that("gram schmidt orto", {
   expect_equal(gram_schmidt(matrix(0,2,2), matrix(c(3,1,2,2),2,2)), matrix(c((1/(sqrt(10)))*3,(1/(sqrt(10)))*1,(1/(sqrt(10)))*(-1),(1/(sqrt(10)))*3),2,2))
 })
 
-# That shouldn't work 
+# The error should appear if the function works properly
 test_that("gram schmidt orto", {
   expect_equal(gram_schmidt(matrix(0,2,2),matrix(c(3,1,2,2),2,2)), matrix(c((1/(sqrt(10)))*5,(1/(sqrt(10)))*5,(1/(sqrt(10)))*5,(1/(sqrt(10)))*5),2,2))
 })
